@@ -7,8 +7,8 @@ dataRoute.get('/',async(req,res)=>{
     const query = req.query;
     console.log(query)
     try{
-        let data = await dataModel.find(query)
-        res.send({data,total:data.length})
+        let Data = await dataModel.find(query)
+        res.send({Data,Total:Data.length})
     }
     catch(err){
         res.send({msg:err.message})
