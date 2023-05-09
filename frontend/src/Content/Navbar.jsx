@@ -20,7 +20,7 @@ const Navbar = () => {
         <Box position='absolute' color='white' top='0' textAlign='center' right='0' bg='red' as='b' w='20px' h='20px' borderRadius='50%' fontSize='12px' >3</Box>
         </Box>
       <Image bg='blackAlpha.600' w='43px' border='2px solid' borderRadius='50%' src='https://avatars.githubusercontent.com/u/103572278?s=400&u=f4788ea6bce0d750dce2b88e0c536b1d7c32a658&v=4' alt='admin' />
-      <IoIosKeypad size='38px'/>
+      <IoIosKeypad size='50px'/>
     </Flex>
    </Flex>
   )

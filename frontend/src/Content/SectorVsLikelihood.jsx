@@ -1,7 +1,8 @@
 import React,{useState,useEffect} from 'react'
 import axios from "axios";
 import { Chart,Bar } from 'react-chartjs-2';
-
+import {Box} from '@chakra-ui/react'
+import {colors} from './Objects.js'
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -26,6 +27,7 @@ ChartJS.register(
   );
 
 const SectorvsLikelihood = () => {
+    const [region,setRegion] = useState('Western Asia')
     const [sector,setSector] = useState(
         {
             labels:[],
@@ -42,10 +44,18 @@ const SectorvsLikelihood = () => {
 
     const options = {
         indexAxis: 'x',
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        },
+        barPercentage: 0.9,
         elements: {
           bar: {
             borderWidth: 2,
-          },
+          }
         },
         responsive: true,
         plugins: {
@@ -54,7 +64,7 @@ const SectorvsLikelihood = () => {
           },
           title: {
             display: true,
-            text:"Brand's Ratings",
+            text:"sector",
             color:'white'
           },
         },
@@ -63,36 +73,48 @@ const SectorvsLikelihood = () => {
 
     useEffect(()=>{
         let obj = {}
-        
+        let Intensity={}
        const getData = async() => {
            let {data:{Data}} = await axios.get('http://localhost:4040/data')
      
-            
+      
            for(let i=0; i<Data.length; i++){
-             if(Data[i].sector && Data[i].likelihood){
-               // console.log(Data[i].sector,  typeof(Data[i].likelihood))
+             if(Data[i].sector && Data[i].likelihood && Data[i].region===region ){
+          
                 if(obj[Data[i].sector]=== undefined){
                     obj[Data[i].sector] = Data[i].likelihood;
                 }else{
                     obj[Data[i].sector] +=Data[i].likelihood
                 }
+                if(Intensity[Data[i].sector]=== undefined){
+                  Intensity[Data[i].topic] = Data[i].intensity;
+              }else{
+                Intensity[Data[i].topic] +=Data[i].intensity
+              }
              }
            }
-           console.log(obj)
+          
 
            const Sector = Object.keys(obj)
            const Likelihood = Object.values(obj)
-          console.log(Sector,Likelihood)
+           const Inten = Object.values(Intensity)
+       
           setSector(
             {
                 labels:Sector,
                 datasets:[
-                    {   type: 'line',
+                    {   type: 'bar',
                         label: 'Likelihood',
                         data:Likelihood,
-                        borderColor: '#ffa500',
-                        backgroundColor: '#ffa500',
-                    }
+                        borderColor: 'red',
+                        backgroundColor: 'red',
+                    },
+                    {   type: 'bar',
+                    label: 'Intensity',
+                    data:Inten,
+                    borderColor: 'aqua',
+                    backgroundColor: 'aqua',
+                }
                    ]
                }
           )
@@ -102,10 +124,22 @@ const SectorvsLikelihood = () => {
         
        getData()
 
-    },[])
+    },[region])
 
   return (
-    <div>
+    <div  style={{width:'50%',border:'1px solid gray',padding:'3px'}} > 
+      <Box bg='#132c4c' w='fit-content'>
+      Region: <select name="region" style={{background:'none',border:'none',backgroundColor:'#132c4c'}}  onChange={(e)=>setRegion(e.target.value)}>
+        <option value="Northern America">Northern America</option>
+        <option value="Central America">Central America</option>
+        <option value="Western Africa">Western Africa</option>
+        <option value="Western Asia">Western Asia</option>
+        <option value="Eastern Europe">Eastern Europe</option>
+        <option value="Western Asia">Western Asia</option>
+        <option value="Central Africa">Central Africa</option>
+        <option value="Southern Asia">Southern Asia</option>
+      </select>
+      </Box>
       <Chart data={sector} options={options} />
     </div>
   )
