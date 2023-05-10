@@ -2,17 +2,20 @@ import React from 'react';
 import {Box,Flex} from '@chakra-ui/react';
 import Sidebar from '../Content/Sidebar';
 import AdminPage from './Admin';
+import Navbar from '../Content/Navbar';
 
 const Dashboard = () => {
   return (
-    <Flex justifyContent='center' alignContent='center'>
-        <Box w='20%'>
+      <Box>
+     <Flex justifyContent='center' alignContent='center' gap='10px'>
+        <Box w='20%' display={{base:'none',md:'block'}}>
         <Sidebar/>
         </Box>
-         <Box w='80%' bg='#121535'  borderRadius='20px'>
+         <Box w={{base:'100%',md:'80%' }} borderRadius='20px'>
          <AdminPage/>
          </Box>
     </Flex>
+      </Box>
   )
 }
 

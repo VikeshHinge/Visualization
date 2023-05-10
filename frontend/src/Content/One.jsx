@@ -1,7 +1,8 @@
 import React,{useState,useEffect} from 'react'
 import axios from "axios";
 import { Doughnut,Chart,Bar } from 'react-chartjs-2';
-import {Box,Select} from '@chakra-ui/react'
+import {Box,Select} from '@chakra-ui/react';
+import { colors } from './Objects';
 
 import {
     Chart as ChartJS,
@@ -28,8 +29,8 @@ ChartJS.register(
     Legend
   );
 
-const One = ({Country,Sectors}) => {
-    const [Sector,setSector] = useState(Sectors)
+const One = ({region}) => {
+    const [Sector,setSector] = useState('Energy')
     const [likelihood,setLikelihood] = useState(
         {
             labels:[],
@@ -53,12 +54,7 @@ const One = ({Country,Sectors}) => {
                 boxHeight:5,
                 boxBorder:'none'
             },
-            hoverOffset: 4
-            // title: {
-            //   display: true,
-            //   text: "Sector",
-            //   color: 'white'
-            // }
+            hoverOffset:10
           },
         },
       };
@@ -70,20 +66,18 @@ const One = ({Country,Sectors}) => {
        const getData = async() => {
            let {data:{Data}} = await axios.get('http://localhost:4040/data')
      
-            //Energy,Manufacturing,Environment,Financial services
-
            for(let i=0; i<Data.length; i++){
-            //&& Data[i].region==='Eastern Asia' && Data[i].sector==='Energy'
-             if(Data[i].sector===Sector && Data[i].likelihood && Data[i].country===Country){
+    
+             if(Data[i].sector===Sector && Data[i].relevance && Data[i].region===region){
                 if(obj[Data[i].topic]=== undefined){
-                    obj[Data[i].topic] = Data[i].likelihood;
+                    obj[Data[i].topic] = Data[i].relevance;
                 }else{
-                    obj[Data[i].topic] +=Data[i].likelihood
+                    obj[Data[i].topic] +=Data[i].relevance
                 }
              }
            }
-           console.log(obj)
 
+           console.log(obj)
            const key = Object.keys(obj)
            const value = Object.values(obj)
          
@@ -91,10 +85,10 @@ const One = ({Country,Sectors}) => {
             labels: key,
             datasets:[
                 {
-                    label: 'Likelihood',
+                    label: 'Relevance',
                     data: value,
-                     borderColor:['red','orange'],
-                    backgroundColor: ['#f554c2','aqua','green','orange','pink','yellow']
+                     borderColor:colors,
+                    backgroundColor:colors
                 },
              
                ]
@@ -104,14 +98,23 @@ const One = ({Country,Sectors}) => {
         
        getData()
 
-    },[Sector,Country])
+    },[Sector,region])
 
   return (
-    <div style={{width:'250px'}}> 
-       <Box fontSize='12px' textAlign='center'>
-       Likelihood: <select name="Sector" onChange={(ele)=>setSector(ele.target.value)} style={{background:'none' ,backgroundColor:'none',fontSize:'12px',border:'none'}}>
-            <option value={Sectors}>{Sectors}</option>
-            <option value="Manufacturing">Manufacturing</option>
+    <div> 
+        <Box w='fit-content' fontWeight='bold'>
+       <select  name="region" style={{background:'none',border:'none',backgroundColor:'none',fontWeight:'bold'}}  onChange={(e)=>setSector(e.target.value)}>
+       <option style={{fontSize:'13px'}} value='Energy'>Energy</option>
+        <option style={{fontSize:'13px'}} value="Environment">Environment</option>
+        <option style={{fontSize:'13px'}} value="Government">Government</option>
+        <option style={{fontSize:'13px'}} value="Aerospace & defence">Aerospace & defence</option>
+        <option style={{fontSize:'13px'}} value="Manufacturing">Manufacturing</option>
+        <option style={{fontSize:'13px'}} value="Information Technology">Information Technology</option>
+        <option style={{fontSize:'13px'}} value="Financial services">Financial services</option>
+        <option style={{fontSize:'13px'}} value="Healthcare">Healthcare</option>
+        <option style={{fontSize:'13px'}} value="Retail">Retail</option>
+        <option style={{fontSize:'13px'}} value="Support services">Support services</option>
+        <option style={{fontSize:'13px'}} value="Food & agriculture">Food & agriculture</option>
         </select>
        </Box>
       <Doughnut data={likelihood} options={options} />

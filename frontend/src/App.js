@@ -8,8 +8,8 @@ import Navbar from './Content/Navbar';
 
 function App() {
   return (
-     <Box bg='#16193c' color='white'> 
-       <Navbar/>
+     <Box bg='#C4F1F9'> 
+       {/* <Navbar/> */}
        <Dashboard/>
      </Box>
   );

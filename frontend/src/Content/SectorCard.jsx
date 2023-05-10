@@ -42,7 +42,7 @@ const [topic,setTopic] = useState(
     {
         labels:[],
         datasets:[
-            { 
+            { type: 'line',
                 label: 'Sector',
                 data:[],
                 borderColor: '#ffa500',
@@ -56,16 +56,11 @@ const options = {
       legend: {
         display: true,
         labels: {
-            boxWidth: 5,
+            boxWidth: 10,
             boxHeight:5,
             boxBorder:'none'
         },
         hoverOffset: 4
-        // title: {
-        //   display: true,
-        //   text: "Sector",
-        //   color: 'white'
-        // }
       },
     },
   };
@@ -120,7 +115,7 @@ useEffect(()=>{
         
         
         setTopic(
-            {
+            {   type: 'line',
                 labels:topics,
                 datasets:[
                     { 
@@ -140,9 +135,9 @@ useEffect(()=>{
 },[sector])
 
   return (
-  <Flex p='10px' border='1px solid' gap='10px'>
-     <Box bg='#132c4c' rounded='md' p='5px' >
-      <select  style={{background:'none',border:'none',background:'#132c4c',fontSize:'25px',fontWeight:'bold'}}  onChange={(e)=>setSector(e.target.value)}>
+  <Flex p='10px' gap='10px' justifyContent='center' m='auto' mt='20px' flexDirection={{base:'column',md:'row'}}>
+     <Box rounded='md' p='5px' >
+     Sector: <select  style={{background:'none',fontSize:'12px',fontSize:'20px',fontWeight:'bold'}}  onChange={(e)=>setSector(e.target.value)}>
         <option style={{fontSize:'13px'}} value='Energy'>Energy</option>
         <option style={{fontSize:'13px'}} value="Environment">Environment</option>
         <option style={{fontSize:'13px'}} value="Government">Government</option>
@@ -155,7 +150,7 @@ useEffect(()=>{
         <option style={{fontSize:'13px'}} value="Support services">Support services</option>
         <option style={{fontSize:'13px'}} value="Food & agriculture">Food & agriculture</option>
       </select>
-      <Bar data={topic} options={options}/>
+        <Bar data={topic} options={options}/>
      </Box>
      <Table Region={Region} relevance={relevance} intensity={intensity} likelihood={likelihood} />
   </Flex>

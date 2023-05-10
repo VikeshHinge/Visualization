@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box,Table,
+import {Box,Table,Flex,
     Thead,
     Tbody,
     Tfoot,
@@ -12,9 +12,9 @@ import {Box,Table,
 const Tables = ({Region,relevance,intensity,likelihood}) => {
   
   return (
-    <Box textAlign='center' w='50%'  
+    <Box textAlign='center' w={{base:'100%',md:'50%' }} 
     border="1px solid" 
-    h="200px"
+    h="250px"
     overflowY="scroll"    
     styles={{
         "::-webkit-scrollbar-track": {
@@ -30,15 +30,16 @@ const Tables = ({Region,relevance,intensity,likelihood}) => {
      <Table size='sm'>
         <Thead position='sticky' top='0' zIndex='9999' bg='#0099ff'>
         <Tr>
-           <Th>Region</Th>
+           <Th w='300px'>Region</Th>
            <Th>Relevence</Th>
            <Th>Intensity</Th>
            <Th>Likelihood</Th>
         </Tr>
         </Thead>
         <Tbody cursor='default' >
-        <Tr >
-            <Td >{Region && Region.map((ele,i)=>{
+        < >
+          
+           <Td w='300px' >{Region && Region.map((ele,i)=>{
               return<Text key={i}>{ele}</Text>
             })}</Td>
 
@@ -53,7 +54,7 @@ const Tables = ({Region,relevance,intensity,likelihood}) => {
               <Td>{likelihood && likelihood.map((ele,i)=>{
                return<Text key={i}>{ele}</Text>
               })}</Td>
-        </Tr>
+        </>
         </Tbody>
       </Table>
     </Box>

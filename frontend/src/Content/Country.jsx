@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import {Box,Text,Flex,Image} from '@chakra-ui/react';
 import { Chart,Bar } from 'react-chartjs-2';
-
+import YearChart from './YearChart';
 import axios from 'axios';
 import { Countries,colors,Flag } from './Objects';
 
@@ -34,12 +34,13 @@ ChartJS.register(
 const CountryCard = () => {
     
     const [country,setCountry] = useState('United States of America')
-
-const [topic,setTopic] = useState(
+    const [story,setStory] = useState([])
+    const [yearData,setYearData] = useState({})
+    const [topic,setTopic] = useState(
     {
         labels:[],
         datasets:[
-            {  type: 'line',
+            {  //type: 'line',
                 label: 'Sector',
                 data:[],
                 borderColor: '#ffa500',
@@ -52,7 +53,7 @@ const options = {
     indexAxis: 'x',
     elements: {
       bar: {
-        borderWidth: 2,
+        borderWidth:0,
       },
     },
     responsive: true,
@@ -65,15 +66,14 @@ const options = {
 
 useEffect(()=>{
     let obj ={}
-    let region ={}
-    let Intensity={}
-    let Likelihood={}
-    let Relevance={}
+    let year ={}
+    let source = {}
 
     const getData = async() => {
 
         let {data:{Data}} = await axios.get(`http://localhost:4040/data?country=${country}`)
         //console.log(Data)
+        setStory(Data)
       
         for(let i=0; i<Data.length; i++){
             if(obj[Data[i].topic]===undefined && Data[i].topic !==''){
@@ -81,16 +81,37 @@ useEffect(()=>{
             }else if( Data[i].topic !==''){
                 obj[Data[i].topic]++;
             }
+
+            if(source[Data[i].source]===undefined && Data.source!==''){
+              source[Data[i].source]=1;
+            }else{
+              source[Data[i].source]++
+            }
+           
+            if(Data[i].published){
+              let yr = Data[i].published;
+              let date = new Date(yr);
+              let time = date.getFullYear();
+              if(year[time]===undefined){
+                year[time]=1;
+              }else{
+                year[time]++;
+              }
+            }
+
         }
         
       const Topics = Object.keys(obj)
       const Count = Object.values(obj)
-      console.log(Topics,Count)
+      setYearData(year)
+      console.log(source)
+
        setTopic(
         {
             labels:Topics,
             datasets:[
-                {  type:'line',
+                {  
+                    type:'line',
                     label: 'Topics Covered',
                     data:Count ,
                     borderColor: colors,
@@ -106,32 +127,44 @@ useEffect(()=>{
 },[country])
 
   return (
-    <Box w='50%'>
-       <Flex justifyContent='space-between' gap='10px'>
-       <select name="Select Country" id="" style={{background:'none',fontSize:'12px'}} 
+    <Box w='90%' p='10px' justifyContent='space-between'>
+     <Box>
+     <Flex justifyContent='space-between' gap='10px' >
+       <select name="Select Country" id="" style={{background:'none',fontSize:'12px',fontSize:'20px',fontWeight:'bold'}} 
         onChange={(e)=>setCountry(e.target.value)}
         >
-            {
-            Countries && Countries.map((ele,i)=>{
-               return <option key={i} value={ele}>{ele}</option>
-             })
-            }
+            {Countries && Countries.map((ele,i)=><option style={{fontSize:'12px'}} key={i} value={ele}>{ele}</option>)}
         </select>
-        <Flex w='150px' flexWrap='revert-layer' justifyContent='center' alignItems='center' position='relative'>
-           {
-            Flag && Flag.map((ele,i)=>{
-                return(
-                    <Image key={ele} src={ele} alt='country'w='25px'h='20px'  zIndex={i} left={i+1} />
-                )
-            })
-           }
-        </Flex>
+       
        </Flex>
 
-       <Box>
-       <Bar data={topic} options={options}/>
+       <Flex gap='20px' justifyContent='space-between' flexDirection={{base:'column',md:'row'}}>
+       <Box w='100%'>
+         <Bar data={topic} options={options}/>
        </Box>
+       <Box>
+       <Flex m='auto' w='150px' flexWrap='revert-layer' justifyContent='center' alignItems='center' position='relative'>
+           {Flag && Flag.map((ele,i)=><Image key={ele} src={ele} alt='country'w='25px'h='20px'  zIndex={i} left={i+1} />)}
+      </Flex>
+       <YearChart yearData={yearData} />
+       </Box>
+       </Flex>
+
+      <Box p='5px' h='160px' border='1px solid' overflowY='scroll' mt='20px' fontSize='sm' >
+        {
+          story && story.map((ele)=><Box key={ele._id}>
+              <Flex p='5px' justifyContent='space-between' alignItems='center' flexWrap='wrap' _hover={{bg:'gray'}}>
+                <a href={ele.url}> <Text >{ele.title}</Text> </a>
+                <Text as='b' color='black' fontSize='10px' bg='red.300' w='fit-content' pl='3px' pr='3px' borderRadius='10px'>Source: {ele.source}</Text>
+               
+              </Flex>
+            <hr />
+          </Box>)
+        }
+      </Box>
+     </Box>
     </Box>
+
   )
 }
 

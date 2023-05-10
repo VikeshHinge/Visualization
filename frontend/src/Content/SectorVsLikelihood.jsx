@@ -1,8 +1,9 @@
 import React,{useState,useEffect} from 'react'
 import axios from "axios";
 import { Chart,Bar } from 'react-chartjs-2';
-import {Box} from '@chakra-ui/react'
-import {colors} from './Objects.js'
+import {Box,Flex} from '@chakra-ui/react'
+import {colors} from './Objects.js';
+import One from './One.jsx';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -27,7 +28,7 @@ ChartJS.register(
   );
 
 const SectorvsLikelihood = () => {
-    const [region,setRegion] = useState('Western Asia')
+    const [region,setRegion] = useState('Northern America')
     const [sector,setSector] = useState(
         {
             labels:[],
@@ -35,15 +36,15 @@ const SectorvsLikelihood = () => {
                 {   type: 'bar',
                     label: 'Sector',
                     data:[],
-                    borderColor: '#ffa500',
-                    backgroundColor: '#ffa500',
+                    // borderColor: '#ffa500',
+                    // backgroundColor: '#ffa500',
                 }
                ]
            }
     )
 
     const options = {
-        indexAxis: 'x',
+        indexAxis: 'y',
         scales: {
           yAxes: [{
             ticks: {
@@ -51,10 +52,10 @@ const SectorvsLikelihood = () => {
             }
           }]
         },
-        barPercentage: 0.9,
+        // barPercentage:1,
         elements: {
           bar: {
-            borderWidth: 2,
+            borderWidth:1,
           }
         },
         responsive: true,
@@ -106,14 +107,14 @@ const SectorvsLikelihood = () => {
                     {   type: 'bar',
                         label: 'Likelihood',
                         data:Likelihood,
-                        borderColor: 'red',
-                        backgroundColor: 'red',
+                       // borderColor: 'red',
+                        backgroundColor: '#ff4444',
                     },
                     {   type: 'bar',
                     label: 'Intensity',
                     data:Inten,
-                    borderColor: 'aqua',
-                    backgroundColor: 'aqua',
+                  //  borderColor: 'aqua',
+                    backgroundColor: '#0099ff',
                 }
                    ]
                }
@@ -127,21 +128,27 @@ const SectorvsLikelihood = () => {
     },[region])
 
   return (
-    <div  style={{width:'50%',border:'1px solid gray',padding:'3px'}} > 
-      <Box bg='#132c4c' w='fit-content'>
-      Region: <select name="region" style={{background:'none',border:'none',backgroundColor:'#132c4c'}}  onChange={(e)=>setRegion(e.target.value)}>
-        <option value="Northern America">Northern America</option>
-        <option value="Central America">Central America</option>
-        <option value="Western Africa">Western Africa</option>
-        <option value="Western Asia">Western Asia</option>
-        <option value="Eastern Europe">Eastern Europe</option>
-        <option value="Western Asia">Western Asia</option>
-        <option value="Central Africa">Central Africa</option>
-        <option value="Southern Asia">Southern Asia</option>
+    <Flex alignItems='center' flexDirection={{base:'column',md:'row'}}>
+       <Box w={{base:'100%',md:'60%'}}>
+       <Box w='fit-content' fontWeight='bold' >
+        Region: <select name="region" style={{background:'none',fontSize:'12px',fontSize:'20px',fontWeight:'bold'}}  onChange={(e)=>setRegion(e.target.value)}>
+        <option style={{fontSize:'13px'}} value="Northern America">Northern America</option>
+        <option style={{fontSize:'13px'}} value="Central America">Central America</option>
+        <option style={{fontSize:'13px'}} value="Western Africa">Western Africa</option>
+        <option style={{fontSize:'13px'}} value="Western Asia">Western Asia</option>
+        <option style={{fontSize:'13px'}} value="Eastern Europe">Eastern Europe</option>
+        <option style={{fontSize:'13px'}} value="Western Asia">Western Asia</option>
+        <option style={{fontSize:'13px'}} value="Central Africa">Central Africa</option>
+        <option style={{fontSize:'13px'}} value="Southern Asia">Southern Asia</option>
       </select>
-      </Box>
-      <Chart data={sector} options={options} />
-    </div>
+      </Box >
+         <Box h='fit-content'> 
+          <Chart data={sector} options={options} />
+        </Box>
+       </Box>
+
+      <One region={region}/>
+    </Flex>
   )
 }
 
