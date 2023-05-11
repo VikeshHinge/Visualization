@@ -1,19 +1,16 @@
 
 import React, { useEffect, useState } from 'react';
-import {Box,Text,Flex,Select} from '@chakra-ui/react';
+import {Box,Flex} from '@chakra-ui/react';
 import Table from './Table.jsx';
-import { Bar, Doughnut,PolarArea } from 'react-chartjs-2';
+import { Bar} from 'react-chartjs-2';
 import {colors} from './Objects.js';
 
 import {
     Chart as ChartJS,
-    RadialLinearScale,
     CategoryScale,
-    LinearScale,
     ArcElement,
     BarElement,
     PointElement,
-    LineElement,
     Title,
     Tooltip,
     Legend
@@ -21,12 +18,9 @@ import {
 
 ChartJS.register(
     CategoryScale,
-    RadialLinearScale,
-    LinearScale,
     ArcElement,
     BarElement,
     PointElement,
-    LineElement,
     Title,
     Tooltip,
     Legend
@@ -43,7 +37,7 @@ const [topic,setTopic] = useState(
     {
         labels:[],
         datasets:[
-            { type: 'line',
+            { 
                 label: 'Sector',
                 data:[],
                 borderColor: '#ffa500',
@@ -103,7 +97,7 @@ useEffect(()=>{
         for(let key in obj){
             if(obj[key]<=10){
                 others += obj[key]
-                delete obj [key]
+                delete obj[key]
             }
         }
         obj['others']=others
@@ -113,7 +107,7 @@ useEffect(()=>{
         
         
         setTopic(
-            {   type: 'line',
+            { 
                 labels:topics,
                 datasets:[
                     { 
@@ -131,7 +125,7 @@ useEffect(()=>{
   return (
   <Flex p='10px' justifyContent='space-evenly' m='auto' mt='40px' flexDirection={{base:'column',md:'row'}}>
      <Box w={{base:'100%',md:'50%'}} bg='Blue 600' rounded='md' p='5px' >
-     Sector: <select  style={{background:'#68ae00',fontSize:'12px',fontSize:'20px',fontWeight:'bold'}}  onChange={(e)=>setSector(e.target.value)}>
+     Sector: <select  style={{background:'#68ae00',fontSize:'20px',fontWeight:'bold'}}  onChange={(e)=>setSector(e.target.value)}>
         <option style={{fontSize:'13px'}} value='Energy'>Energy</option>
         <option style={{fontSize:'13px'}} value="Environment">Environment</option>
         <option style={{fontSize:'13px'}} value="Government">Government</option>

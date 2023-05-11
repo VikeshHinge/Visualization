@@ -1,14 +1,10 @@
 import React from 'react';
-import { Style } from './Objects';
 import {Box,Table,
     Thead,
     Tbody,
-    Tfoot,
     Tr,
     Th,
-    Td,Text,
-    TableCaption,
-    TableContainer} from '@chakra-ui/react'
+    Td,Text} from '@chakra-ui/react'
 
 const Tables = ({Region,relevance,intensity,likelihood}) => {
   
@@ -16,18 +12,8 @@ const Tables = ({Region,relevance,intensity,likelihood}) => {
     <Box textAlign='center' w={{base:'100%',md:'50%' }} 
     border="1px solid" 
     h="250px"
-    style={{
-        "::-webkit-scrollbar-track": {
-          background: "red",
-        },
-        "::-webkit-scrollbar-thumb": {
-          background: "yellow",
-        },
-        "::-webkit-scrollbar-thumb:hover": {
-          background: "red",
-        }, 
-        overflowY:"scroll"  
-      }} >
+    overflowY='scroll'
+    >
      <Table size='sm'>
         <Thead position='sticky' top='0' zIndex='9999' bg='#0099ff'>
         <Tr>
@@ -38,7 +24,6 @@ const Tables = ({Region,relevance,intensity,likelihood}) => {
         </Tr>
         </Thead>
         <Tbody cursor='default' >
-        < >
           
            <Td w='300px' >{Region && Region.map((ele,i)=>{
               return<Text key={i}>{ele}</Text>
@@ -55,7 +40,7 @@ const Tables = ({Region,relevance,intensity,likelihood}) => {
               <Td>{likelihood && likelihood.map((ele,i)=>{
                return<Text key={i}>{ele}</Text>
               })}</Td>
-        </>
+       
         </Tbody>
       </Table>
     </Box>

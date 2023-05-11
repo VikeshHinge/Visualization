@@ -6,11 +6,9 @@ import { colors } from './Objects';
 import {
     Chart as ChartJS,
     CategoryScale,
-    LinearScale,
     ArcElement,
     BarElement,
     PointElement,
-    LineElement,
     Title,
     Tooltip,
     Legend
@@ -18,11 +16,9 @@ import {
 
 ChartJS.register(
     CategoryScale,
-    LinearScale,
     ArcElement,
     BarElement,
     PointElement,
-    LineElement,
     Title,
     Tooltip,
     Legend
@@ -72,7 +68,6 @@ const One = ({region,Data}) => {
              }
            }
 
-           console.log(obj)
            const key = Object.keys(obj)
            const value = Object.values(obj)
          

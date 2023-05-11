@@ -5,10 +5,8 @@ import One from './One.jsx';
 import {
     Chart as ChartJS,
     CategoryScale,
-    LinearScale,
     BarElement,
     PointElement,
-    LineElement,
     Title,
     Tooltip,
     Legend
@@ -16,10 +14,8 @@ import {
 
 ChartJS.register(
     CategoryScale,
-    LinearScale,
     BarElement,
     PointElement,
-    LineElement,
     Title,
     Tooltip,
     Legend
@@ -41,13 +37,6 @@ const SectorvsLikelihood = ({Data}) => {
 
     const options = {
         indexAxis: 'x',
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        },
         barPercentage:1,
         elements: {
           bar: {

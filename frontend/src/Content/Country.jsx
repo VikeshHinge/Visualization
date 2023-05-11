@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import {Box,Text,Flex,Image} from '@chakra-ui/react';
-import { Bar } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 import YearChart from './YearChart';
 import { Countries,colors,Flag } from './Objects';
 
@@ -39,7 +39,7 @@ const CountryCard = ({Data}) => {
     {
         labels:[],
         datasets:[
-            {  //type: 'line',
+            {  type: 'line',
                 label: 'Sector',
                 data:[],
                 borderColor: '#ffa500',
@@ -100,7 +100,6 @@ useEffect(()=>{
       const Topics = Object.keys(obj)
       const Count = Object.values(obj)
       setYearData(year)
-      console.log(source)
 
        setTopic(
         {
@@ -132,7 +131,7 @@ useEffect(()=>{
 
        <Flex gap='20px' justifyContent='space-between' flexDirection={{base:'column',md:'row'}}>
        <Box w='100%'>
-         <Bar data={topic} options={options}/>
+         <Line data={topic} options={options}/>
        </Box>
        <Box>
        <Flex m='auto' w='150px' flexWrap='revert-layer' justifyContent='center' alignItems='center' position='relative'>

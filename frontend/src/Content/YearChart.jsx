@@ -1,16 +1,13 @@
-import React,{useState} from 'react'
+import React from 'react'
 import { Doughnut } from 'react-chartjs-2';
 import { colors } from './Objects';
 
 import {
     Chart as ChartJS,
     CategoryScale,
-    RadialLinearScale,
-    LinearScale,
     ArcElement,
     BarElement,
     PointElement,
-    LineElement,
     Title,
     Tooltip,
     Legend
@@ -18,31 +15,16 @@ import {
 
 ChartJS.register(
     CategoryScale,
-    RadialLinearScale,
-    LinearScale,
     ArcElement,
     BarElement,
     PointElement,
-    LineElement,
     Title,
     Tooltip,
     Legend
   );
 
 const YearChart = ({yearData}) => {
-    const [chartData,setChartData] = useState(
-        {
-            labels:[],
-            datasets:[
-                { 
-                    label: 'Sector',
-                    data:[],
-                    borderColor: '#ffa500',
-                    backgroundColor: '#ffa500',
-                }
-               ]
-           }
-    )
+  
 
     const options = {
         plugins: {

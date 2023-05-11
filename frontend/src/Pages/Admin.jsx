@@ -30,9 +30,9 @@ const [Data,setData] = useState([])
           </Box>:
       <Box mt='10px'>
          <IntoCards Data={Data} />
-        <SectorvsLikelihood Data={Data}/>
+       <SectorvsLikelihood Data={Data}/>
         <SectorCard Data={Data}/>
-        <CountryCard Data={Data}/>
+        <CountryCard Data={Data}/> 
       </Box>
        }
     </Box>

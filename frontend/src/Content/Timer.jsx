@@ -30,12 +30,13 @@ const Today = `${month} ${day} ${year}`;
   return (
  
 <Box borderRadius='5px'  h='120px' bg='#4370ba' boxShadow='md' position='relative' textAlign='center'mt='10px'>
+<Image src='https://flagpedia.net/data/flags/h80/in.webp' w='30px' h='20px' alt='india' />
  <Box w='fit-content' m='auto' p='5px' >
  <Text fontSize='3xl' as='b'>{timer}</Text>
   <Text>{Today}</Text>
  </Box>
 <Box position='absolute' top='40px'>
-{event>=7 && event<10?<WiSunrise size='65px' color='orange' />:event>=10 && event<18?<WiDayCloudy size='65px'color='yellow' />:event>=18 & event<=19?<WiSunset size='65px' color='orange'/>:<WiNightAltCloudy size='65px' />}
+{event>=7 && event<10?<WiSunrise size='65px' color='orange' />:event>=10 && event<18?<WiDayCloudy size='65px'color='yellow' />:<WiNightAltCloudy size='65px' />}
 </Box>
 </Box>
  
