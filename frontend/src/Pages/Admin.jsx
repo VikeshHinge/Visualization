@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import {Box,Flex} from '@chakra-ui/react'
+import {Box,Text} from '@chakra-ui/react'
 import SectorvsLikelihood from '../Content/SectorVsLikelihood'
 import SectorCard from '../Content/SectorCard';
 import CountryCard from '../Content/Country';
@@ -24,12 +24,17 @@ const [Data,setData] = useState([])
   return (
     <Box pb='50px'>
       <Navbar changeTheme={changeTheme} />
+       {
+        Data.length===0?<Box mt='60px'>
+          <Text as='b' color='blue.500'>  Loading ...</Text>
+          </Box>:
       <Box mt='10px'>
-      <IntoCards Data={Data} />
+         <IntoCards Data={Data} />
         <SectorvsLikelihood Data={Data}/>
         <SectorCard Data={Data}/>
         <CountryCard Data={Data}/>
       </Box>
+       }
     </Box>
   )
 }

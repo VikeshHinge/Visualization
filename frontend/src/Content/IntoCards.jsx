@@ -1,8 +1,6 @@
 import React,{useState,useEffect} from 'react'
-import axios from "axios";
 import CountUp from 'react-countup';
-import {Box,Select,Text,Flex} from '@chakra-ui/react';
-import { colors } from './Objects';
+import {Box,Text,Flex} from '@chakra-ui/react';
 import { RiArticleLine } from "react-icons/ri";
 import { GoBroadcast,GoLocation } from "react-icons/go";
 

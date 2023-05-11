@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {Box,Flex} from '@chakra-ui/react';
 import Sidebar from '../Content/Sidebar';
 import AdminPage from './Admin';
-import Navbar from '../Content/Navbar';
 
 const Dashboard = ({changeTheme}) => {
 

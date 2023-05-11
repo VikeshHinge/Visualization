@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import {Box,Text,Flex,Image} from '@chakra-ui/react';
-import { Chart,Bar } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import YearChart from './YearChart';
 import { Countries,colors,Flag } from './Objects';
 
@@ -68,24 +68,24 @@ useEffect(()=>{
     let year ={}
     let source = {}
 
-        Data = Data.filter((ele)=>ele.country===country)
-        setStory(Data)
+       let newData = Data.filter((ele)=>ele.country===country)
+        setStory(newData)
       
-        for(let i=0; i<Data.length; i++){
-            if(obj[Data[i].topic]===undefined && Data[i].topic !==''){
-                obj[Data[i].topic]=1
-            }else if( Data[i].topic !==''){
-                obj[Data[i].topic]++;
+        for(let i=0; i<newData.length; i++){
+            if(obj[newData[i].topic]===undefined && newData[i].topic !==''){
+                obj[newData[i].topic]=1
+            }else if( newData[i].topic !==''){
+                obj[newData[i].topic]++;
             }
 
-            if(source[Data[i].source]===undefined && Data.source!==''){
-              source[Data[i].source]=1;
+            if(source[newData[i].source]===undefined && newData.source!==''){
+              source[newData[i].source]=1;
             }else{
-              source[Data[i].source]++
+              source[newData[i].source]++
             }
            
-            if(Data[i].published){
-              let yr = Data[i].published;
+            if(newData[i].published){
+              let yr = newData[i].published;
               let date = new Date(yr);
               let time = date.getFullYear();
               if(year[time]===undefined){
@@ -123,7 +123,7 @@ useEffect(()=>{
     <Box w='90%' p='10px' justifyContent='space-between'>
      <Box>
      <Flex justifyContent='space-between' gap='10px' >
-       <select name="Select Country" id="" style={{background:'#68ae00',fontSize:'12px',fontSize:'20px',fontWeight:'bold'}} 
+       <select name="Select Country" id="" style={{background:'#68ae00',fontSize:'20px',fontWeight:'bold'}} 
         onChange={(e)=>setCountry(e.target.value)}
         >
             {Countries && Countries.map((ele,i)=><option style={{fontSize:'12px'}} key={i} value={ele}>{ele}</option>)}

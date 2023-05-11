@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState} from 'react'
 import { Doughnut } from 'react-chartjs-2';
 import { colors } from './Objects';
 
@@ -65,7 +65,7 @@ let Data =   {
   labels:year,
   datasets:[
       { 
-          label: 'Sector',
+          label: 'News Cover',
           data:count,
           borderColor:colors,
           backgroundColor:colors,

@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import { Chart,Bar } from 'react-chartjs-2';
+import { Chart } from 'react-chartjs-2';
 import {Box,Flex} from '@chakra-ui/react'
 import One from './One.jsx';
 import {
@@ -112,7 +112,7 @@ const SectorvsLikelihood = ({Data}) => {
     <Flex alignItems='center' justifyContent='space-between' flexDirection={{base:'column',md:'row'}} p='15px'>
        <Box w={{base:'100%',md:'60%'}}>
        <Box w='fit-content' fontWeight='bold' m='auto' fontSize='xl'>
-        Region: <select name="region" style={{background:'#68ae00',fontSize:'12px',fontSize:'20px',fontWeight:'bold',margin:'auto'}}  onChange={(e)=>setRegion(e.target.value)}>
+        Region: <select name="region" style={{background:'#68ae00',fontSize:'20px',fontWeight:'bold',margin:'auto'}}  onChange={(e)=>setRegion(e.target.value)}>
         <option style={{fontSize:'13px'}} value="Northern America">Northern America</option>
         <option style={{fontSize:'13px'}} value="Central America">Central America</option>
         <option style={{fontSize:'13px'}} value="Western Africa">Western Africa</option>

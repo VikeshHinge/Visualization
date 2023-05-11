@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import './App.css';
 import {Box} from '@chakra-ui/react'
-import AdminPage from './Pages/Admin';
 import Dashboard from './Pages/Dashboard';
-import Navbar from './Content/Navbar';
+
 
 
 const lightmode = {backgroundColor:'#EDFDFD',color:'black'}

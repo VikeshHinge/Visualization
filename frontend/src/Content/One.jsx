@@ -1,7 +1,6 @@
 import React,{useState,useEffect} from 'react'
-import axios from "axios";
-import { Doughnut,Chart,Bar,PolarArea} from 'react-chartjs-2';
-import {Box,Select} from '@chakra-ui/react';
+import { Doughnut} from 'react-chartjs-2';
+import {Box} from '@chakra-ui/react';
 import { colors } from './Objects';
 
 import {
