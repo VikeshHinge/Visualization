@@ -1,8 +1,6 @@
 import React,{useState,useEffect} from 'react'
-import axios from "axios";
 import { Chart,Bar } from 'react-chartjs-2';
 import {Box,Flex} from '@chakra-ui/react'
-import {colors} from './Objects.js';
 import One from './One.jsx';
 import {
     Chart as ChartJS,
@@ -27,7 +25,7 @@ ChartJS.register(
     Legend
   );
 
-const SectorvsLikelihood = () => {
+const SectorvsLikelihood = ({Data}) => {
     const [region,setRegion] = useState('Northern America')
     const [sector,setSector] = useState(
         {
@@ -35,16 +33,14 @@ const SectorvsLikelihood = () => {
             datasets:[
                 {   type: 'bar',
                     label: 'Sector',
-                    data:[],
-                    // borderColor: '#ffa500',
-                    // backgroundColor: '#ffa500',
+                    data:[]
                 }
                ]
            }
     )
 
     const options = {
-        indexAxis: 'y',
+        indexAxis: 'x',
         scales: {
           yAxes: [{
             ticks: {
@@ -52,21 +48,16 @@ const SectorvsLikelihood = () => {
             }
           }]
         },
-        // barPercentage:1,
+        barPercentage:1,
         elements: {
           bar: {
-            borderWidth:1,
+            borderWidth:0,
           }
         },
         responsive: true,
         plugins: {
           legend: {
             position: 'top',
-          },
-          title: {
-            display: true,
-            text:"sector",
-            color:'white'
           },
         },
       };
@@ -75,10 +66,7 @@ const SectorvsLikelihood = () => {
     useEffect(()=>{
         let obj = {}
         let Intensity={}
-       const getData = async() => {
-           let {data:{Data}} = await axios.get('http://localhost:4040/data')
      
-      
            for(let i=0; i<Data.length; i++){
              if(Data[i].sector && Data[i].likelihood && Data[i].region===region ){
           
@@ -107,31 +95,24 @@ const SectorvsLikelihood = () => {
                     {   type: 'bar',
                         label: 'Likelihood',
                         data:Likelihood,
-                       // borderColor: 'red',
                         backgroundColor: '#ff4444',
                     },
                     {   type: 'bar',
                     label: 'Intensity',
                     data:Inten,
-                  //  borderColor: 'aqua',
                     backgroundColor: '#0099ff',
                 }
                    ]
                }
           )
 
-
-       }
-        
-       getData()
-
-    },[region])
+    },[region,Data])
 
   return (
-    <Flex alignItems='center' flexDirection={{base:'column',md:'row'}}>
+    <Flex alignItems='center' justifyContent='space-between' flexDirection={{base:'column',md:'row'}} p='15px'>
        <Box w={{base:'100%',md:'60%'}}>
-       <Box w='fit-content' fontWeight='bold' >
-        Region: <select name="region" style={{background:'none',fontSize:'12px',fontSize:'20px',fontWeight:'bold'}}  onChange={(e)=>setRegion(e.target.value)}>
+       <Box w='fit-content' fontWeight='bold' m='auto' fontSize='xl'>
+        Region: <select name="region" style={{background:'#68ae00',fontSize:'12px',fontSize:'20px',fontWeight:'bold',margin:'auto'}}  onChange={(e)=>setRegion(e.target.value)}>
         <option style={{fontSize:'13px'}} value="Northern America">Northern America</option>
         <option style={{fontSize:'13px'}} value="Central America">Central America</option>
         <option style={{fontSize:'13px'}} value="Western Africa">Western Africa</option>
@@ -147,7 +128,7 @@ const SectorvsLikelihood = () => {
         </Box>
        </Box>
 
-      <One region={region}/>
+      <One Data={Data} region={region}/>
     </Flex>
   )
 }

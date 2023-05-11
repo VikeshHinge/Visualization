@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {Box,Flex} from '@chakra-ui/react';
 import Sidebar from '../Content/Sidebar';
 import AdminPage from './Admin';
 import Navbar from '../Content/Navbar';
 
-const Dashboard = () => {
+const Dashboard = ({changeTheme}) => {
+
+
+
   return (
       <Box>
      <Flex justifyContent='center' alignContent='center' gap='10px'>
@@ -12,7 +15,7 @@ const Dashboard = () => {
         <Sidebar/>
         </Box>
          <Box w={{base:'100%',md:'80%' }} borderRadius='20px'>
-         <AdminPage/>
+         <AdminPage changeTheme={changeTheme}/>
          </Box>
     </Flex>
       </Box>

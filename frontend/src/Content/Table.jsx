@@ -1,5 +1,6 @@
 import React from 'react';
-import {Box,Table,Flex,
+import { Style } from './Objects';
+import {Box,Table,
     Thead,
     Tbody,
     Tfoot,
@@ -15,17 +16,17 @@ const Tables = ({Region,relevance,intensity,likelihood}) => {
     <Box textAlign='center' w={{base:'100%',md:'50%' }} 
     border="1px solid" 
     h="250px"
-    overflowY="scroll"    
-    styles={{
+    style={{
         "::-webkit-scrollbar-track": {
           background: "red",
         },
         "::-webkit-scrollbar-thumb": {
-          background: "#888",
+          background: "yellow",
         },
         "::-webkit-scrollbar-thumb:hover": {
           background: "red",
-        },
+        }, 
+        overflowY:"scroll"  
       }} >
      <Table size='sm'>
         <Thead position='sticky' top='0' zIndex='9999' bg='#0099ff'>

@@ -1,12 +1,11 @@
 import React,{useState,useEffect} from 'react'
-import axios from "axios";
-import { Doughnut,Chart,Bar } from 'react-chartjs-2';
-import {Box,Select} from '@chakra-ui/react';
+import { Doughnut } from 'react-chartjs-2';
 import { colors } from './Objects';
 
 import {
     Chart as ChartJS,
     CategoryScale,
+    RadialLinearScale,
     LinearScale,
     ArcElement,
     BarElement,
@@ -19,6 +18,7 @@ import {
 
 ChartJS.register(
     CategoryScale,
+    RadialLinearScale,
     LinearScale,
     ArcElement,
     BarElement,
@@ -54,11 +54,6 @@ const YearChart = ({yearData}) => {
                 boxBorder:'none'
             },
             hoverOffset: 4
-            // title: {
-            //   display: true,
-            //   text: "Sector",
-            //   color: 'white'
-            // }
           },
         },
       };

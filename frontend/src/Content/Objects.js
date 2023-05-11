@@ -99,3 +99,33 @@ export const Flag =
     "Belize",
     "Poland"
   ];
+
+
+  export const Style = {
+    styles: {
+      global: {
+        '::-webkit-scrollbar': {
+          width: '0.2em',
+          background: 'transparent',
+        },
+        '::-webkit-scrollbar-thumb': {
+          background: 'transparent',
+        },
+        '.chakra-scroll-content': {
+          overflowY: 'scroll',
+          scrollbarWidth: 'thin',
+          scrollbarColor: 'gray',
+          '&::-webkit-scrollbar': {
+            width: '0.4em',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            backgroundColor: 'blue',
+            borderRadius: 'md',
+          },
+          '&::-webkit-scrollbar-track': {
+            backgroundColor: 'transparent',
+          },
+        },
+      },
+    }
+  }

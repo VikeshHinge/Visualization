@@ -7,17 +7,13 @@ import { RiArticleLine } from "react-icons/ri";
 import { GoBroadcast,GoLocation } from "react-icons/go";
 
 
-const IntoCards = () => {
+const IntoCards = ({Data}) => {
   const [data,setData] = useState([])
   const [sources,setSources] = useState([])
   const [Country,setCountry] = useState([])
 
   useEffect(()=>{
    
-   
-
-   const getData = async() => {
-       let {data:{Data}} = await axios.get('http://localhost:4040/data')
            setData(Data)
     
             let src=[];
@@ -35,20 +31,15 @@ const IntoCards = () => {
 
         setSources(src)
         setCountry(ctry)
-   }
-     
-   
-    
-   getData()
 
-},[])
+},[Data])
 
 
 
 
 
   return (
-  <Flex alignItems='center' justifyContent='space-around'w={{base:'100%',md:'70%'}} mt='20px' mb='20px' 
+  <Flex alignItems='center' justifyContent='space-around'w={{base:'100%',md:'70%'}} mb='20px' 
   color='white' flexDirection={{base:'column',md:'row'}} gap='10px'>
 
       <Flex w={{base:'80%',md:'70%'}}  bg='#68ae00' boxShadow='md' p='10px' textAlign='center' rounded='md' alignItems='center' justifyContent='space-between' gap='10px'>

@@ -1,13 +1,13 @@
 
 import React, { useEffect, useState } from 'react';
 import {Box,Text,Flex,Select} from '@chakra-ui/react';
-import axios from 'axios';
 import Table from './Table.jsx';
-import { Bar, Doughnut } from 'react-chartjs-2';
+import { Bar, Doughnut,PolarArea } from 'react-chartjs-2';
 import {colors} from './Objects.js';
 
 import {
     Chart as ChartJS,
+    RadialLinearScale,
     CategoryScale,
     LinearScale,
     ArcElement,
@@ -21,6 +21,7 @@ import {
 
 ChartJS.register(
     CategoryScale,
+    RadialLinearScale,
     LinearScale,
     ArcElement,
     BarElement,
@@ -31,7 +32,7 @@ ChartJS.register(
     Legend
   );
 
-const SectorCard = () => {
+const SectorCard = ({Data}) => {
 const [sector,setSector] = useState('Energy')
 const [Region,setRegion]=useState([])
 const [relevance,setRelevance] = useState([])
@@ -71,9 +72,6 @@ useEffect(()=>{
     let Intensity={}
     let Likelihood={}
     let Relevance={}
-
-    const getData = async() => {
-        let {data:{Data}} = await axios.get('http://localhost:4040/data')
 
         for(let i=0; i<Data.length; i++){
           if( obj[Data[i].topic]===undefined && Data[i].sector===sector){
@@ -128,16 +126,12 @@ useEffect(()=>{
                }
         )
 
-    };
-
-    getData()
-
-},[sector])
+},[sector,Data])
 
   return (
-  <Flex p='10px' gap='10px' justifyContent='center' m='auto' mt='20px' flexDirection={{base:'column',md:'row'}}>
-     <Box rounded='md' p='5px' >
-     Sector: <select  style={{background:'none',fontSize:'12px',fontSize:'20px',fontWeight:'bold'}}  onChange={(e)=>setSector(e.target.value)}>
+  <Flex p='10px' justifyContent='space-evenly' m='auto' mt='40px' flexDirection={{base:'column',md:'row'}}>
+     <Box w={{base:'100%',md:'50%'}} bg='Blue 600' rounded='md' p='5px' >
+     Sector: <select  style={{background:'#68ae00',fontSize:'12px',fontSize:'20px',fontWeight:'bold'}}  onChange={(e)=>setSector(e.target.value)}>
         <option style={{fontSize:'13px'}} value='Energy'>Energy</option>
         <option style={{fontSize:'13px'}} value="Environment">Environment</option>
         <option style={{fontSize:'13px'}} value="Government">Government</option>

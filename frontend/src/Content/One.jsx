@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import axios from "axios";
-import { Doughnut,Chart,Bar } from 'react-chartjs-2';
+import { Doughnut,Chart,Bar,PolarArea} from 'react-chartjs-2';
 import {Box,Select} from '@chakra-ui/react';
 import { colors } from './Objects';
 
@@ -29,7 +29,7 @@ ChartJS.register(
     Legend
   );
 
-const One = ({region}) => {
+const One = ({region,Data}) => {
     const [Sector,setSector] = useState('Energy')
     const [likelihood,setLikelihood] = useState(
         {
@@ -62,10 +62,6 @@ const One = ({region}) => {
 
     useEffect(()=>{
         let obj = {}
-        
-       const getData = async() => {
-           let {data:{Data}} = await axios.get('http://localhost:4040/data')
-     
            for(let i=0; i<Data.length; i++){
     
              if(Data[i].sector===Sector && Data[i].relevance && Data[i].region===region){
@@ -82,6 +78,7 @@ const One = ({region}) => {
            const value = Object.values(obj)
          
         setLikelihood({
+          type: 'polarArea',
             labels: key,
             datasets:[
                 {
@@ -94,18 +91,13 @@ const One = ({region}) => {
                ]
            })
       
-       }
-        
-       getData()
-
-    },[Sector,region])
+    },[Sector,region,Data])
 
   return (
     <div> 
-        <Box w='fit-content' fontWeight='bold'>
-       <select  name="region" style={{background:'none',border:'none',backgroundColor:'none',fontWeight:'bold'}}  onChange={(e)=>setSector(e.target.value)}>
+        <Box w='fit-content' fontWeight='bold' fontSize='xl'>
+       <select  name="region" style={{background:'#68ae00',border:'none',backgroundColor:'none',fontWeight:'bold'}}  onChange={(e)=>setSector(e.target.value)}>
        <option style={{fontSize:'13px'}} value='Energy'>Energy</option>
-        <option style={{fontSize:'13px'}} value="Environment">Environment</option>
         <option style={{fontSize:'13px'}} value="Government">Government</option>
         <option style={{fontSize:'13px'}} value="Aerospace & defence">Aerospace & defence</option>
         <option style={{fontSize:'13px'}} value="Manufacturing">Manufacturing</option>

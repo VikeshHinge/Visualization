@@ -1,17 +1,15 @@
 import React from 'react';
 import {Box,Flex,Text,Image} from '@chakra-ui/react'
 import { GoFileMedia,GoHome,GoSettings,GoGear,GoTasklist } from "react-icons/go";
-import Sidedrower from './Sidedrower'
 import Timer from './Timer';
 
 const Sidebar = () => {
   return (
-  <Box ml='5px'  cursor='default' position='sticky' top='0'>
-     <Box textAlign='center' color='white' bg='#086F83' m='auto' p='10px'  mb='10px' >
-        {/* <Text as='b' fontSize='3xl' >Blackkuffer</Text> */}
+  <Box ml='5px' color='white' cursor='default' position='sticky' top='0'>
+     <Box textAlign='center' color='white' boxShadow='md' bgGradient='linear(to-r, #1f7faa,#4370ba,#6c61cc)'m='auto' p='10px' roundedBottomRight='md' mb='10px' >
         <Image h='40px'm='auto' src='https://dataoil.blackcoffer.com/assets/images/Logo/white1.png'  alt='Blackcoffer' />
      </Box>
-     <Box spacing={4} align='stretch' p='10px' pt='15px' pb='15px' bg='#086F83' color='gray.400' boxShadow='xl' rounded='lg'>
+     <Box spacing={4} align='stretch' p='10px' pt='15px' pb='15px' bgGradient='linear(to-r, #1f7faa,#4370ba)' boxShadow='xl' rounded='lg'>
 
     <Flex alignItems='center' gap='5px'  p='10px' borderBottom='2px solid' _hover={{color:'white'}}>
       <GoHome size='30px'/> 

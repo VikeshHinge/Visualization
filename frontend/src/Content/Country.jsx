@@ -2,7 +2,6 @@ import React,{useState,useEffect} from 'react';
 import {Box,Text,Flex,Image} from '@chakra-ui/react';
 import { Chart,Bar } from 'react-chartjs-2';
 import YearChart from './YearChart';
-import axios from 'axios';
 import { Countries,colors,Flag } from './Objects';
 
 
@@ -31,7 +30,7 @@ ChartJS.register(
     Legend
   );
 
-const CountryCard = () => {
+const CountryCard = ({Data}) => {
     
     const [country,setCountry] = useState('United States of America')
     const [story,setStory] = useState([])
@@ -69,10 +68,7 @@ useEffect(()=>{
     let year ={}
     let source = {}
 
-    const getData = async() => {
-
-        let {data:{Data}} = await axios.get(`http://localhost:4040/data?country=${country}`)
-        //console.log(Data)
+        Data = Data.filter((ele)=>ele.country===country)
         setStory(Data)
       
         for(let i=0; i<Data.length; i++){
@@ -120,22 +116,18 @@ useEffect(()=>{
                ]
            }
        )
-    };
-   
-    getData()
 
-},[country])
+},[country,Data])
 
   return (
     <Box w='90%' p='10px' justifyContent='space-between'>
      <Box>
      <Flex justifyContent='space-between' gap='10px' >
-       <select name="Select Country" id="" style={{background:'none',fontSize:'12px',fontSize:'20px',fontWeight:'bold'}} 
+       <select name="Select Country" id="" style={{background:'#68ae00',fontSize:'12px',fontSize:'20px',fontWeight:'bold'}} 
         onChange={(e)=>setCountry(e.target.value)}
         >
             {Countries && Countries.map((ele,i)=><option style={{fontSize:'12px'}} key={i} value={ele}>{ele}</option>)}
         </select>
-       
        </Flex>
 
        <Flex gap='20px' justifyContent='space-between' flexDirection={{base:'column',md:'row'}}>
